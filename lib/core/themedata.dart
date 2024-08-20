@@ -14,6 +14,7 @@ final ThemeData myCustomTheme = ThemeData(
           onError: Color(0xff351238),
           inversePrimary: Color(0xff064B75),
           onInverseSurface: Color(0xff14697E),
+          inverseSurface: Color(0xff2DB1E5),
           brightness: Brightness.light,
           
         ),

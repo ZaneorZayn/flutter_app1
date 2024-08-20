@@ -1,44 +1,47 @@
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_app/widget/custom_app.dart';
-import 'package:mobile_app/widget/gradient_appbar.dart';
+import 'package:mobile_app/screen/blogscreen.dart';
+import 'package:mobile_app/screen/clinicscreen.dart';
+import 'package:mobile_app/screen/productscreen.dart';
 
-class HomeScreen extends StatelessWidget {
+
+import '../widget/bottomnavigation.dart';
+import 'homescreen_content.dart';
+
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return  Scaffold(
-      appBar: CustomAppBar(
-        //title: 'Home',
-        height: 100 ,
-        logoPath: 'assets/images/logo.png', // Path to your SVG logo
-        actions: [
-          IconButton(
-            splashColor: Colors.red,
+  _HomeScreenState createState() => _HomeScreenState();
+}
 
-            icon: Icon(Icons.notifications_none),
-            style: IconButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-              backgroundColor: Theme.of(context).colorScheme.surface,
-            ),
-            onPressed: () {
-              // Handle notifications icon press
-            },
-          ),
-          IconButton(
-            icon: Icon(Icons.settings),
-            onPressed: () {
-              // Handle settings icon press
-            },
-          ),
-        ],
-        backgroundColor: Colors.blue, // Customize the background color
-        titleColor: Colors.white, // Customize the title color
+class _HomeScreenState extends State<HomeScreen> {
+  int _selectedIndex = 0;
+
+  final List<Widget> _screens = [
+    HomeScreenContent(), // You can replace this with actual Home content widget
+    Blogscreen(),
+    Clinicscreen(),
+    Productscreen(),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      drawer: Drawer(),
+      body: _screens[_selectedIndex],
+      bottomNavigationBar: CustomBottomNavigationBar(
+        selectedIndex: _selectedIndex,
+        onItemTapped: _onItemTapped,
       ),
     );
   }
 }
+
+// Placeholder for home screen content; you can replace it with your actual content.
+

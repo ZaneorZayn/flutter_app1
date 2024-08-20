@@ -40,8 +40,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             if (logoPath != null) ...[
               Image.asset(
                 logoPath!,
-                height: 32.0, // Adjust the height as needed
-                color: titleColor ?? Colors.white, // Optionally color the logo
+                height: 40.0,
+                // Adjust the height as needed
+                //color: titleColor ?? Colors.white, // Optionally color the logo
               ),
               SizedBox(width: 8.0), // Add some spacing between logo and title
 
@@ -57,7 +58,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
         centerTitle: centerTitle,
         backgroundColor: Colors.transparent, // Make AppBar background transparent
-        elevation: 0, // Remove AppBar shadow if needed
+        elevation: 1, // Remove AppBar shadow if needed
         actions: actions,
         automaticallyImplyLeading: automaticallyImplyLeading,
       ),
