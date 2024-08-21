@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile_app/core/gradient_color.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mobile_app/screen/blogscreen.dart';
-import 'package:mobile_app/screen/clinicscreen.dart';
-import 'package:mobile_app/screen/homescreen.dart';
-import 'package:mobile_app/screen/productscreen.dart';
+
 
 class CustomBottomNavigationBar extends StatefulWidget {
   final Function(int) onItemTapped; // Callback to handle item tap
