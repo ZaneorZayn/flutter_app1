@@ -54,7 +54,7 @@ class HomeScreenContent extends StatelessWidget {
                   color: Theme.of(context).colorScheme.primary,
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(10.0),
                   child: Text("Your period is likely on 29 August",
                   style: Theme.of(context).textTheme.displayLarge?.copyWith(
                     color: Theme.of(context).colorScheme.surface,
@@ -120,6 +120,7 @@ class HomeScreenContent extends StatelessWidget {
                                   icon: SvgPicture.asset("assets/images/clinic.svg"),
                                   width:90,
                                   height:40 ,
+                                  backgroundColor: Theme.of(context).colorScheme.onSecondary,
                                 ),
                               ),
                             ],
@@ -133,8 +134,8 @@ class HomeScreenContent extends StatelessWidget {
 
                               Expanded(
                                 child: CustomButton(
-                                  text: "Join us ",
-                                  icon: SvgPicture.asset("assets/images/clinic.svg"),
+                                  text: "Join the movement ",
+                                  //icon: SvgPicture.asset("assets/images/clinic.svg"),
                                   width:90,
                                   height:40 ,
                                 ),
@@ -142,10 +143,11 @@ class HomeScreenContent extends StatelessWidget {
                               SizedBox(width: 6,),
                               Expanded(
                                 child: CustomButton(
-                                  text: "Join us ",
+                                  text: "Hot Line ",
                                   icon: SvgPicture.asset("assets/images/clinic.svg"),
                                   width:90,
                                   height:40 ,
+                                  backgroundColor: Theme.of(context).colorScheme.onInverseSurface,
                                 ),
                               ),
                             ],
@@ -165,52 +167,6 @@ class HomeScreenContent extends StatelessWidget {
   }
 }
 
-class IconTextButton extends StatelessWidget {
-  final Widget icon;
-  final String text;
-  final VoidCallback onPressed;
-  final Color iconColor;
-  final Color textColor;
-  final Color backgroundColor;
-
-  const IconTextButton({
-    Key? key,
-    required this.icon,
-    required this.text,
-    required this.onPressed,
-    this.iconColor = Colors.white,
-    this.textColor = Colors.white,
-    this.backgroundColor = Colors.blue,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 8.0),
-        backgroundColor: backgroundColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0),
-        ),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min, // Ensures the button takes up only the necessary space
-        children: [
-         icon,
-          SizedBox(width: 8.0), // Space between icon and text
-          Text(
-            text,
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              color: Theme.of(context).colorScheme.onError,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
 class CustomButton extends StatelessWidget {
   final String text;
   final Color backgroundColor;
@@ -260,7 +216,9 @@ class CustomButton extends StatelessWidget {
               text,
               style: Theme.of(context).textTheme.labelSmall?.copyWith(
                 fontWeight: FontWeight.bold,
+                color: Colors.white,
               ),
+              textAlign: TextAlign.center,
 
               overflow: TextOverflow.visible, // Allow text to wrap or show fully
             ),
