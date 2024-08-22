@@ -16,6 +16,7 @@ final ThemeData myCustomTheme = ThemeData(
           onInverseSurface: Color(0xff14697E),
           inverseSurface: Color(0xff2DB1E5),
           brightness: Brightness.light,
+          tertiary: Color(0xffF7F7F7),
           
         ),
 
