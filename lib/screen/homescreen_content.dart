@@ -23,11 +23,10 @@ class HomeScreenContent extends StatelessWidget {
         return Scaffold(
           backgroundColor: Theme.of(context).colorScheme.tertiary,
           appBar: CustomAppBar(
-            height: 120,
+            height: 110,
             logoPath: 'assets/images/logo.png', // Path to your SVG logo
             actions: [
               IconButton(
-                splashColor: Colors.red,
                 style: IconButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -199,7 +198,7 @@ class HomeScreenContent extends StatelessWidget {
                     child: Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(15.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -269,7 +268,7 @@ class HomeScreenContent extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 4),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -297,7 +296,7 @@ class HomeScreenContent extends StatelessWidget {
                         return Container(
                           width: isTablet ? screenWidth * 0.5 : screenWidth * 0.6, // Adjust width for tablets
                           margin: const EdgeInsets.only(right: 8.0), // Add margin between cards
-                          child: BlogPostCard(blogPost: fakeBlogPosts[index]),
+                          child: BlogPostCard(blogPost: fakeBlogPosts[index], ),
                         );
                       },
                     ),
@@ -305,7 +304,7 @@ class HomeScreenContent extends StatelessWidget {
                 ),
 
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 2),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

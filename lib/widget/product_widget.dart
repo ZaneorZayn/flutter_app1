@@ -114,8 +114,15 @@ class _ProductWidgetState extends State<ProductWidget> {
               onPressed: () {
                 // Handle add to cart action
               },
-              icon: Icon(Icons.add_shopping_cart),
-              label: Text('Add to Cart'),
+              icon: Icon(Icons.add_shopping_cart,
+                color: Theme.of(context).colorScheme.surface
+                ,),
+              label: Text('Add to Cart',
+                style:Theme.of(context).textTheme.displayMedium?.copyWith(
+                  color: Theme.of(context).colorScheme.surface
+                )
+
+                ,),
               style: ElevatedButton.styleFrom(
                 minimumSize: Size(double.infinity, 36),
                 backgroundColor: Theme.of(context).colorScheme.secondary, // Full-width button
