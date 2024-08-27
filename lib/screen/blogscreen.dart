@@ -11,129 +11,140 @@ import '../widget/mypost.dart';
 import '../widget/q&atab.dart';
 import '../widget/video_tab.dart';
 
-class Blogscreen extends StatelessWidget {
+class Blogscreen extends StatefulWidget {
   const Blogscreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 5, // Number of tabs
-      child: Scaffold(
-        appBar: AppBar(
-          title: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            child: Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(
-                    text: "All Content",
-                    style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurface,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  TextSpan(
-                    text: "\nExplore good blogs and Q&A",
-                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.surface.withOpacity(0.8),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          centerTitle: false,
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color(0xFFF49EC4),
-                  Color(0xFFF9C0C7),
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-            ),
-          ),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.all(6.0),
-              child: IconButton(
-                icon: Icon(
-                  Icons.search,
-                  color: Theme.of(context).colorScheme.onSurface,
-                ),
-                onPressed: () {
-                  // Handle notification icon tap
-                },
-                style: IconButton.styleFrom(
-                  backgroundColor: Theme.of(context).colorScheme.surface,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  elevation: 2,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 12.0),
-              child: IconButton(
-                icon: Icon(
-                  Icons.bookmark,
-                  color: Theme.of(context).colorScheme.onSurface,
-                ),
-                onPressed: () {
-                  // Handle message icon tap
-                },
-                style: IconButton.styleFrom(
-                  backgroundColor: Theme.of(context).colorScheme.surface,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  elevation: 2,
-                ),
-              ),
-            ),
-          ],
-          bottom: TabBar(
-            indicatorColor: Theme.of(context).colorScheme.primary,
-            indicatorWeight: 5,
-            labelColor: Theme.of(context).colorScheme.onPrimary,
-            unselectedLabelColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
-            labelStyle: Theme.of(context).textTheme.titleLarge?.copyWith(
-              fontWeight: FontWeight.bold,
+  _BlogscreenState createState() => _BlogscreenState();
+}
 
+class _BlogscreenState extends State<Blogscreen> {
+  int _selectedIndex = 0; // Tracks the currently selected tab
+
+  final List<String> _tabs = [
+    'All',
+    'Blog',
+    'Q&A',
+    'Video',
+    'My Post',
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16.0),
+          child: Text.rich(
+            TextSpan(
+              children: [
+                TextSpan(
+                  text: "All Content",
+                  style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurface,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                TextSpan(
+                  text: "\nExplore good blogs and Q&A",
+                  style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                    color: Theme.of(context).colorScheme.surface.withOpacity(0.8),
+                  ),
+                ),
+              ],
             ),
-            isScrollable: false, // Allows scrolling if the tabs overflow the screen
-            tabs: [
-              Tab(text: 'All'),
-              Tab(text: 'Blog'),
-              Tab(text: 'Q&A'),
-              Tab(text: 'Video'),
-              Tab(text: 'My Post'),
-            ],
           ),
         ),
-        body: TabBarView(
-          children: [
-            AllTab(), // Content for All tab
-            BlogsTab(), // Content for Blog tab
-            QnATab(), // Content for Q&A tab
-            VideoTab(), // Content for Video tab
-            MyPostTab(), // Content for My Post tab
-          ],
+        centerTitle: false,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color(0xFFF49EC4),
+                Color(0xFFF9C0C7),
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(60.0),
+          child: Material(
+            elevation: 4.0, // Adds elevation to create a shadow
+            shadowColor: Colors.black.withOpacity(0.3), // Controls the shadow color
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                color: Colors.white,
+                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 2),
+                height: 40.0,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: _tabs.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.symmetric(horizontal: 20.0),
+                          backgroundColor: _selectedIndex == index
+                              ? Theme.of(context).colorScheme.primary
+                              : Theme.of(context).colorScheme.surface,
+                          foregroundColor: _selectedIndex == index
+                              ? Colors.white
+                              : Theme.of(context).colorScheme.onSurface,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16.0),
+                            side: BorderSide(
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                          ),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _selectedIndex = index;
+                          });
+                        },
+                        child: Text(
+                          _tabs[index],
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+          ),
         ),
       ),
+      body: _buildTabContent(),
     );
+  }
+
+  // Build the content based on the selected tab
+  Widget _buildTabContent() {
+    switch (_selectedIndex) {
+      case 0:
+        return AllTab();
+      case 1:
+        return BlogsTab();
+      case 2:
+        return QnATab();
+      case 3:
+        return VideoTab();
+      case 4:
+        return MyPostTab();
+      default:
+        return AllTab();
+    }
   }
 }
 
-// Widgets for displaying content types
-
-
-
+// Example widget for the QnA tab
 class QnAWidget extends StatelessWidget {
   final QuestionAnswer qna;
 
@@ -177,6 +188,7 @@ class QnAWidget extends StatelessWidget {
   }
 }
 
+// Example widget for the Video tab
 class VideoWidget extends StatefulWidget {
   final Video video;
 

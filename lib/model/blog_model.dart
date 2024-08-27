@@ -2,25 +2,35 @@ import 'package:flutter/material.dart';
 
 class BlogPost {
   final String title;
-  final String description; // Added description
+  final String description;
   final String imageUrl;
-  final List<String> additionalImages; // Added list of additional images
+  final List<String> additionalImages;
   final DateTime date;
   final int views;
   final String postedBy;
   final String posterImageUrl;
+  final String category; // Added category field
 
   BlogPost({
     required this.title,
-    required this.description, // Added description
+    required this.description,
     required this.imageUrl,
-    required this.additionalImages, // Added list of additional images
+    required this.additionalImages,
     required this.date,
     required this.views,
     required this.postedBy,
     required this.posterImageUrl,
+    required this.category, // Added category field
   });
 }
+
+List<BlogPost> getRelatedBlogs(BlogPost currentBlogPost, List<BlogPost> allBlogs) {
+  return allBlogs.where((blog) {
+    // Exclude the current blog post and find blogs in the same category
+    return blog.category == currentBlogPost.category && blog != currentBlogPost;
+  }).toList();
+}
+
 
 List<BlogPost> fakeBlogPosts = [
   BlogPost(
@@ -36,6 +46,7 @@ List<BlogPost> fakeBlogPosts = [
     views: 1024,
     postedBy: 'John Doe',
     posterImageUrl: 'assets/images/john_doe.jpg',
+    category: 'Flutter', // Example category
   ),
   BlogPost(
     title: 'State Management in Flutter: A Complete Guide',
@@ -50,6 +61,7 @@ List<BlogPost> fakeBlogPosts = [
     views: 980,
     postedBy: 'Jane Smith',
     posterImageUrl: 'assets/images/jane_smith.jpg',
+    category: 'Flutter', // Example category
   ),
   BlogPost(
     title: 'Creating Responsive UI in Flutter',
@@ -64,6 +76,7 @@ List<BlogPost> fakeBlogPosts = [
     views: 1200,
     postedBy: 'Emily Davis',
     posterImageUrl: 'assets/images/emily_davis.jpg',
+    category: 'Flutter', // Example category
   ),
   BlogPost(
     title: 'Flutter Animations: Making Your App Pop',
@@ -78,6 +91,7 @@ List<BlogPost> fakeBlogPosts = [
     views: 1500,
     postedBy: 'Michael Brown',
     posterImageUrl: 'assets/images/michael_brown.jpg',
+    category: 'Animations', // Example category
   ),
   BlogPost(
     title: 'Introduction to Dart: The Language Behind Flutter',
@@ -92,5 +106,6 @@ List<BlogPost> fakeBlogPosts = [
     views: 1120,
     postedBy: 'Sarah Johnson',
     posterImageUrl: 'assets/images/sarah_johnson.jpg',
+    category: 'Dart Programming', // Example category
   ),
 ];

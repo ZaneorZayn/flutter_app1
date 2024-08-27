@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,6 +15,8 @@ import '../widget/svg_container.dart'; // Import your product model
 class HomeScreenContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final int maxProductsToShow = 3; // Number of products you want to display
+    final List<Product> featuredProducts = dummyProducts.take(min(maxProductsToShow, dummyProducts.length)).toList();
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
 
@@ -329,12 +333,12 @@ class HomeScreenContent extends StatelessWidget {
                     height: isTablet ? 400 : 280, // Adjust based on the screen size
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal, // Set the scroll direction to horizontal
-                      itemCount: dummyProducts.length,
+                      itemCount: featuredProducts.length,
                       itemBuilder: (context, index) {
                         return Container(
                           width: isTablet ? screenWidth * 0.5 : screenWidth * 0.6, // Adjust width for tablets
                           margin: const EdgeInsets.only(right: 8.0), // Add margin between cards
-                          child: ProductWidget(product: dummyProducts[index]),
+                          child: ProductWidget(product: featuredProducts[index]),
                         );
                       },
                     ),

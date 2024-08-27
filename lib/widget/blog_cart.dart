@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_app/screen/blog_detailscreen.dart';
 import '../model/blog_model.dart';
-import '../screen/blog_detailscreen.dart';
- // Import the DetailScreen
 
 class BlogPostCard extends StatelessWidget {
   final BlogPost blogPost;
@@ -10,13 +9,18 @@ class BlogPostCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Get the related blogs for this blog post
+    List<BlogPost> relatedBlogs = getRelatedBlogs(blogPost, fakeBlogPosts);
+
     return InkWell(
       onTap: () {
-        // Navigate to the DetailScreen when the card is tapped
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => DetailScreen(blogPost: blogPost),
+            builder: (context) => DetailScreen(
+              blogPost: blogPost,
+              relatedBlogs: relatedBlogs, // Pass the related blogs
+            ),
           ),
         );
       },
@@ -30,19 +34,9 @@ class BlogPostCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  topRight: Radius.circular(10)),
-              child: Image.asset(
-                blogPost.imageUrl,
-                fit: BoxFit.cover,
-                width: double.infinity,
-                height: MediaQuery.of(context).size.height * 0.14,
-              ),
-            ),
+            handleBlogImage(blogPost.imageUrl, context),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(6.0),
               child: Text(
                 blogPost.title,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
@@ -83,8 +77,45 @@ class BlogPostCard extends StatelessWidget {
   }
 }
 
-extension DateHelpers on DateTime {
-  String toShortString() {
-    return '${this.day}/${this.month}/${this.year}';
+Widget handleBlogImage(String? imageUrl, BuildContext context) {
+  if (imageUrl != null && imageUrl.isNotEmpty) {
+    // If the image URL is valid, return the image
+    return Image.asset(
+      imageUrl,
+      fit: BoxFit.cover,
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height * 0.14,
+      errorBuilder: (context, error, stackTrace) {
+        // Handle cases where the image fails to load
+        return Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height * 0.14,
+          color: Colors.grey[300],
+          child: Center(
+            child: Icon(
+              Icons.broken_image,
+              size: 50,
+              color: Colors.grey[600],
+            ),
+          ),
+        );
+      },
+    );
+  } else {
+    // If the image URL is missing or empty, return a placeholder widget
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height * 0.14,
+      color: Colors.grey[300],
+      child: Center(
+        child: Icon(
+          Icons.image_not_supported,
+          size: 50,
+          color: Colors.grey[600],
+        ),
+      ),
+    );
   }
 }
+
+

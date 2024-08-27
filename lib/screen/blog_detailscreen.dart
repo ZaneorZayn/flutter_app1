@@ -1,28 +1,33 @@
 import 'package:flutter/material.dart';
-
 import '../model/blog_model.dart';
 
 class DetailScreen extends StatelessWidget {
   final BlogPost blogPost;
+  final List<BlogPost> relatedBlogs; // Expecting relatedBlogs parameter
 
-  const DetailScreen({required this.blogPost});
+  const DetailScreen({
+    required this.blogPost,
+    required this.relatedBlogs, // This is the required parameter
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(blogPost.title,
-        style: Theme.of(context).textTheme.displayMedium,),
+        style: Theme.of(context).textTheme.displayMedium?.copyWith(
+          fontWeight: FontWeight.bold,
+        ),),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(10.0),
+        padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Main Image
             Image.asset(
               blogPost.imageUrl,
-              width: MediaQuery.of(context).size.width,
+              width: double.infinity,
               fit: BoxFit.cover,
             ),
             SizedBox(height: 16.0),
@@ -36,31 +41,38 @@ class DetailScreen extends StatelessWidget {
             ),
             SizedBox(height: 8.0),
 
-            // Blog Post Details
+            // Blog Post Details with Poster Image and Name
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-
                 CircleAvatar(
                   backgroundImage: AssetImage(blogPost.posterImageUrl),
-                  radius: 20,
+                  radius: 20.0,
                 ),
-                const SizedBox(width: 10,),
+                SizedBox(width: 8.0),
                 Text(
                   'By ${blogPost.postedBy}',
+                  style: Theme.of(context).textTheme.displayMedium,
+                ),
+                Spacer(),
+
+                Text(
+                  ' ${blogPost.category}',
                   style: Theme.of(context).textTheme.displayMedium,
                 ),
 
               ],
             ),
-            const SizedBox(height: 8,),
+             const SizedBox(height: 8,),
+
             Row(
               children: [
                 Text(
-                  '${blogPost.date.toLocal().toIso8601String().substring(0, 10)}',
-                  style: Theme.of(context).textTheme.bodyMedium,
+                  '${blogPost.date.toLocal().toShortString()}',
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
-                const SizedBox(width: 8,),
+                const SizedBox(
+                  width: 8,
+                ),
                 Text(
                   '${blogPost.views} views',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.grey),
@@ -76,54 +88,82 @@ class DetailScreen extends StatelessWidget {
             ),
             SizedBox(height: 16.0),
 
-            // Additional Images
-            Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'More Images',
-                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-
-                  IconButton(
-                      onPressed: (){},
-                      icon: Icon(Icons.arrow_forward))
-                ],
+            // Additional Images Title
+            Text(
+              'More Images',
+              style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                fontWeight: FontWeight.bold,
               ),
-            ),
-
-            Divider(
-              thickness: 1,
-              color: Colors.grey.withOpacity(0.5),
             ),
             SizedBox(height: 8.0),
+
+            // PageView for additional images
             Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16)
-              ),
-              height: MediaQuery.of(context).size.height * 0.35,
+              height: MediaQuery.of(context).size.height * 0.15,
               child: PageView.builder(
-                scrollDirection: Axis.horizontal,
                 itemCount: blogPost.additionalImages.length,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.only(right: 8.0),
                     child: Image.asset(
                       blogPost.additionalImages[index],
-                      width: MediaQuery.of(context).size.width ,
-                      fit: BoxFit.contain,
+                      width: MediaQuery.of(context).size.width,
+
+                      fit: BoxFit.cover,
                     ),
                   );
                 },
               ),
             ),
-            Divider(
-              thickness: 1,
-              color: Colors.grey.withOpacity(0.5),
+
+            // Related Blogs Section
+            SizedBox(height: 24.0),
+            Text(
+              'Related Blogs',
+              style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 8.0),
+
+            // List of Related Blogs
+            ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: relatedBlogs.length,
+              itemBuilder: (context, index) {
+                final relatedBlog = relatedBlogs[index];
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DetailScreen(
+                            blogPost: relatedBlog,
+                            relatedBlogs: getRelatedBlogs(relatedBlog, fakeBlogPosts), // Pass related blogs again
+                          ),
+                        ),
+                      );
+                    },
+                    child: Card(
+                      elevation: 4.0,
+                      child: ListTile(
+                        leading: Image.asset(
+                          relatedBlog.imageUrl,
+                          fit: BoxFit.cover,
+                          width: 75.0,
+                          height: 50.0,
+                        ),
+                        title: Text(relatedBlog.title),
+                        subtitle: Text('By ${relatedBlog.postedBy}',
+                        style: Theme.of(context).textTheme.bodySmall,),
+                      ),
+                    ),
+                  ),
+                );
+              },
             ),
           ],
         ),
@@ -132,3 +172,8 @@ class DetailScreen extends StatelessWidget {
   }
 }
 
+extension DateHelpers on DateTime {
+  String toShortString() {
+    return '${this.day}/${this.month}/${this.year}';
+  }
+}
