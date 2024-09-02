@@ -33,6 +33,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         gradient: Theme.of(context).customGradient, // Use gradient here
       ),
       child: AppBar(
+
         title: Row(
           children: [
             if (logoPath != null) ...[
@@ -56,7 +57,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
         centerTitle: centerTitle,
         backgroundColor: Colors.transparent, // Make AppBar background transparent
-        elevation: 1, // Remove AppBar shadow if needed
+        elevation: 4, // Remove AppBar shadow if needed
         actions: actions,
         automaticallyImplyLeading: automaticallyImplyLeading,
       ),

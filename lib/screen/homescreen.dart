@@ -21,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
     HomeScreenContent(), // You can replace this with actual Home content widget
     Blogscreen(),
     Clinicscreen(),
-    Productscreen(),
+    ProductScreen(),
   ];
 
   void _onItemTapped(int index) {
