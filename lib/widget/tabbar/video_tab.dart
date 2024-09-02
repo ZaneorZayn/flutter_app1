@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../model/video_model.dart';
-import '../screen/blogscreen.dart';
+import '../../model/video_model.dart';
+import '../../screen/blogscreen.dart';
 
 class VideoTab extends StatelessWidget {
   @override

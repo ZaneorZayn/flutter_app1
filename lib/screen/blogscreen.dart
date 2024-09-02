@@ -5,11 +5,11 @@ import '../model/allcontent_model.dart';
 import '../model/blog_model.dart';
 import '../model/q&a_model.dart';
 import '../model/video_model.dart';
-import '../widget/alltab.dart';
-import '../widget/blogtab.dart';
-import '../widget/mypost.dart';
-import '../widget/q&atab.dart';
-import '../widget/video_tab.dart';
+import '../widget/tabbar/alltab.dart';
+import '../widget/tabbar/blogtab.dart';
+import '../widget/tabbar/mypost.dart';
+import '../widget/tabbar/q&atab.dart';
+import '../widget/tabbar/video_tab.dart';
 
 class Blogscreen extends StatefulWidget {
   const Blogscreen({super.key});
@@ -70,6 +70,30 @@ class _BlogscreenState extends State<Blogscreen> {
             ),
           ),
         ),
+        actions: [
+          IconButton(
+            color: Colors.grey,
+            style: IconButton.styleFrom(
+              backgroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(24)
+              )
+            ),
+              onPressed: (){},
+              icon: Icon(Icons.search)
+          ),
+          IconButton(
+              color: Colors.grey,
+              style: IconButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24)
+                  )
+              ),
+              onPressed: (){},
+              icon: Icon(Icons.bookmark)
+          ),
+        ],
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(60.0),
           child: Material(

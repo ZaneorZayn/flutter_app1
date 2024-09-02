@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../model/q&a_model.dart';
-import '../screen/blogscreen.dart';
+import '../../model/q&a_model.dart';
+import '../../screen/blogscreen.dart';
 
 class QnATab extends StatelessWidget {
   @override

@@ -34,7 +34,7 @@ List<Product> dummyProducts = [
     price: 15.0,
     imageAssetPath: 'assets/images/classic.png',
     category: 'Condom',
-    discountPercentage: 20,
+    discountPercentage: 0,
     reviewCount: 10, // Example review count
   ),
   Product(

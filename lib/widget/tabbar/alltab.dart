@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_app/widget/blog_cart.dart';
 
-import '../model/allcontent_model.dart';
-import '../model/blog_model.dart';
-import '../model/q&a_model.dart';
-import '../model/video_model.dart';
-import '../screen/blogscreen.dart';
+import '../../model/allcontent_model.dart';
+import '../../model/blog_model.dart';
+import '../../model/q&a_model.dart';
+import '../../model/video_model.dart';
+import '../../screen/blogscreen.dart';
 
 class AllTab extends StatelessWidget {
   @override
