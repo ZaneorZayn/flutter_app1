@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import '../model/product_model.dart';
-import '../widget/star_rating.dart';
+import 'package:mobile_app/screen/productscreen.dart';
+import 'package:provider/provider.dart';
+import '../../controller/provider/cart_provider.dart';
+import '../../model/product_model.dart';
+import '../../widget/star_rating.dart';
 
 class ProductDetailScreen extends StatefulWidget {
   final Product product;
@@ -16,7 +19,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Fetch related products based on category
+    final cartProvider = Provider.of<CartProvider>(context, listen: false);
     List<Product> relatedProducts = getRelatedProductsByCategory(widget.product.category);
 
     return Scaffold(
@@ -49,7 +52,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         style: Theme.of(context).textTheme.displayLarge?.copyWith(fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 8),
-                      // StarRating with rating and reviewCount
                       StarRating(rating: 4.5, reviewCount: widget.product.reviewCount),
                       const SizedBox(height: 8),
                       Text(
@@ -203,7 +205,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           IconButton(
-                            icon: Icon(Icons.remove,size: 16,),
+                            icon: Icon(Icons.remove, size: 16),
                             onPressed: () {
                               setState(() {
                                 if (quantity > 1) {
@@ -221,7 +223,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             ),
                           ),
                           IconButton(
-                            icon: Icon(Icons.add,size: 16,),
+                            icon: Icon(Icons.add, size: 16),
                             onPressed: () {
                               setState(() {
                                 quantity++;
@@ -237,7 +239,11 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       flex: 2,
                       child: ElevatedButton(
                         onPressed: () {
-                          // Add to cart logic here
+                          cartProvider.addItem(widget.product, quantity);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('added to cart!')),
+                          );// Pass the quantity to addItem
+                          Navigator.pop(context); // Navigate back to ProductScreen
                         },
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(

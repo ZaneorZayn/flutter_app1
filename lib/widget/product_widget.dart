@@ -59,7 +59,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                     color: dominantColor, // Apply the dominant color to the image container
                     child: Image.asset(
                       widget.product.imageAssetPath,
-                      height: 130,
+                      height: 170,
                       width: double.infinity,
                       fit: BoxFit.cover, // Ensures the image covers the entire container
                     ),
@@ -113,31 +113,15 @@ class _ProductWidgetState extends State<ProductWidget> {
                     SizedBox(width: 8.0),
                   Text(
                     '\$${widget.product.priceAfterDiscount.toStringAsFixed(2)}',
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
                       fontWeight: FontWeight.bold,
+                      color: Colors.green[600],
                     ),
                   ),
                 ],
               ),
               SizedBox(height: 4.0),
-              ElevatedButton.icon(
-                onPressed: () {
-                  // Handle add to cart action
-                },
-                icon: Icon(Icons.add_shopping_cart,
-                  color: Theme.of(context).colorScheme.surface
-                  ,),
-                label: Text('Add to Cart',
-                  style:Theme.of(context).textTheme.displayMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.surface
-                  )
 
-                  ,),
-                style: ElevatedButton.styleFrom(
-                  minimumSize: Size(double.infinity, 36),
-                  backgroundColor: Theme.of(context).colorScheme.secondary, // Full-width button
-                ),
-              ),
             ],
           ),
         ),

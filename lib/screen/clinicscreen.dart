@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_app/model/doctor_model.dart';
+import 'package:mobile_app/screen/doctor_detail_screen.dart';
+import 'package:mobile_app/screen/doctor_screen.dart';
 import 'package:mobile_app/widget/custom_appbar1.dart';
 import 'package:mobile_app/widget/doc_slide.dart';
 import 'package:mobile_app/widget/doctor_card.dart';
-import '../widget/svg_container.dart';
+import 'package:mobile_app/widget/svg_container.dart';
 
-class Clinicscreen extends StatelessWidget {
+class Clinicscreen extends StatefulWidget {
   const Clinicscreen({super.key});
 
+  @override
+  _ClinicscreenState createState() => _ClinicscreenState();
+}
+
+class _ClinicscreenState extends State<Clinicscreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,37 +32,40 @@ class Clinicscreen extends StatelessWidget {
               child: Row(
                 children: [
                   Expanded(
+                    child: InkWell(
+                      onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorScreen()));},
+                      child: SvgTextContainer(
+                        svgPath: 'assets/images/doctor.svg',
+                        text: 'Doctor',
+                        backgroundColor: Colors.white,
+                        textColor: Colors.black,
+                        textBackgroundColor: Colors.white,
+                        textFontSize: 11,
+                        textFontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 17),
+                  Expanded(
                     child: SvgTextContainer(
-                      svgPath: 'assets/images/prescription.svg',
-                      text: 'Doctor',
+                      svgPath: 'assets/images/Calander.svg',
+                      text: 'Appointment',
                       backgroundColor: Colors.white,
                       textColor: Colors.black,
                       textBackgroundColor: Colors.white,
-                      textFontSize: 11,
+                      textFontSize: 9.1,
                       textFontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(width: 17),
                   Expanded(
                     child: SvgTextContainer(
-                      svgPath: 'assets/images/appointment.svg',
-                      text: 'Sexual Health',
-                      backgroundColor: Colors.white,
-                      textColor: Colors.black,
-                      textBackgroundColor: Colors.white,
-                      textFontSize: 11,
-                      textFontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(width: 17),
-                  Expanded(
-                    child: SvgTextContainer(
                       svgPath: 'assets/images/prescription.svg',
-                      text: 'Sexual Health',
+                      text: 'Prescription',
                       backgroundColor: Colors.white,
                       textColor: Colors.black,
                       textBackgroundColor: Colors.white,
-                      textFontSize: 11,
+                      textFontSize: 10,
                       textFontWeight: FontWeight.bold,
                     ),
                   ),
@@ -63,7 +73,7 @@ class Clinicscreen extends StatelessWidget {
                   Expanded(
                     child: SvgTextContainer(
                       svgPath: 'assets/images/medicine.svg',
-                      text: 'Sexual Health',
+                      text: 'Medicine',
                       backgroundColor: Colors.white,
                       textColor: Colors.black,
                       textBackgroundColor: Colors.white,
@@ -93,7 +103,9 @@ class Clinicscreen extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemCount: dummyDoctors.length,
                 itemBuilder: (context, index) {
-                  return DoctorCard(doctor: dummyDoctors[index]);
+                  return InkWell(
+                      onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DoctorDetailScreen()));},
+                      child: DoctorCard(doctor: dummyDoctors[index]));
                 },
               ),
             ),
@@ -102,7 +114,7 @@ class Clinicscreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Available Doctors",style: Theme.of(context).textTheme.displayLarge),
+                  Text("Available Doctors", style: Theme.of(context).textTheme.displayLarge),
                   TextButton(
                     onPressed: () {},
                     child: const Text("View All"),
@@ -117,10 +129,10 @@ class Clinicscreen extends StatelessWidget {
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: dummyDoctors.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, // Number of columns
+                  crossAxisCount: 2,
                   crossAxisSpacing: 10.0,
                   mainAxisSpacing: 10.0,
-                  childAspectRatio: 3 / 4, // Adjust the aspect ratio as needed
+                  childAspectRatio: 3 / 4,
                 ),
                 itemBuilder: (context, index) {
                   return AvailableDoctorCard(doctor: dummyDoctors[index]);
@@ -176,8 +188,10 @@ class AvailableDoctorCard extends StatelessWidget {
                       backgroundColor: Colors.green,
                       padding: const EdgeInsets.all(2.0),
                     ),
-                    child: Text('online',
-                    style: TextStyle(color: Colors.white),),
+                    child: const Text(
+                      'Online',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ),
             ],
@@ -207,11 +221,10 @@ class AvailableDoctorCard extends StatelessWidget {
                       ?.copyWith(color: Colors.grey),
                 ),
               ),
-
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Text(
-                  '${doctor.experience} years +',  // Directly using experience
+                  '${doctor.experience} years +',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.blue),
@@ -219,11 +232,10 @@ class AvailableDoctorCard extends StatelessWidget {
               ),
             ],
           ),
-
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Text(
-              '\$${doctor.price.toStringAsFixed(2)} ',  // Directly using price
+              '\$${doctor.price.toStringAsFixed(2)} ',
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.green),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../screen/doctor_search.dart';
 
 class CustomAppBarr extends StatelessWidget implements PreferredSizeWidget {
   @override
@@ -8,7 +9,7 @@ class CustomAppBarr extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return Container(
       height: preferredSize.height,
-      padding: EdgeInsets.only(top:45, left: 16, right: 16, bottom: 10),
+      padding: EdgeInsets.only(top: 45, left: 16, right: 16, bottom: 10),
       decoration: BoxDecoration(
         color: Colors.lightBlue, // Set the background color
       ),
@@ -21,7 +22,8 @@ class CustomAppBarr extends StatelessWidget implements PreferredSizeWidget {
               Row(
                 children: [
                   CircleAvatar(
-                    backgroundImage: NetworkImage('https://via.placeholder.com/150'), // Replace with the actual image URL
+                    backgroundImage: NetworkImage(
+                        'https://via.placeholder.com/150'), // Replace with the actual image URL
                     radius: 20,
                   ),
                   SizedBox(width: 10),
@@ -89,34 +91,42 @@ class CustomAppBarr extends StatelessWidget implements PreferredSizeWidget {
             ],
           ),
           SizedBox(height: 10),
-          Container(
-            height: 50,
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(25),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  spreadRadius: 2,
-                  blurRadius: 5,
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DoctorSearchScreen(initialQuery: ''), // Pass an initial query if needed
                 ),
-              ],
-            ),
-            child: Row(
-              children: [
-                Icon(Icons.search, color: Colors.black54),
-                SizedBox(width: 10),
-                Expanded(
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Find your suitable doctor!',
-                      border: InputBorder.none,
+              );
+            },
+            child: Container(
+              height: 50,
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(25),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    spreadRadius: 2,
+                    blurRadius: 5,
+                  ),
+                ],
+              ),
+              child: Row(
+                children: [
+                  Icon(Icons.search, color: Colors.black54),
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: Text(
+                      'Find your suitable doctor!',
+                      style: TextStyle(color: Colors.black54),
                     ),
                   ),
-                ),
-                Icon(Icons.tune, color: Colors.black54),
-              ],
+                  Icon(Icons.tune, color: Colors.black54),
+                ],
+              ),
             ),
           ),
         ],

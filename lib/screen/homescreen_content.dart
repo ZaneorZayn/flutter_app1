@@ -9,8 +9,9 @@ import '../model/blog_model.dart';
 import '../model/product_model.dart';
 import '../widget/blog_cart.dart';
 import '../widget/button.dart';
+import '../widget/png_container.dart';
 import '../widget/product_widget.dart';
-import '../widget/svg_container.dart'; // Import your product model
+
 
 class HomeScreenContent extends StatelessWidget {
   @override
@@ -27,7 +28,7 @@ class HomeScreenContent extends StatelessWidget {
         return Scaffold(
           backgroundColor: Theme.of(context).colorScheme.tertiary,
           appBar: CustomAppBar(
-            height: 110,
+            height: 100,
             logoPath: 'assets/images/logo.png', // Path to your SVG logo
             actions: [
               IconButton(
@@ -219,10 +220,10 @@ class HomeScreenContent extends StatelessWidget {
                         const Row(
                           children: [
                             Expanded(
-                              child: SvgTextContainer(
-                                svgPath: 'assets/images/prescription.svg', // Replace with your actual SVG path
+                              child: PngTextContainer(
+                                imagePath: 'assets/images/SexualHealth.png', // Replace with your actual SVG path
                                 text: 'Sexual Health',
-                                backgroundColor: Colors.blueAccent, // Example customization
+                                backgroundColor: Color(0xffF7B5CA),// light pink
                                 textColor: Colors.black,
                                 textBackgroundColor: Colors.white,
                                 textFontSize: 11,
@@ -231,10 +232,10 @@ class HomeScreenContent extends StatelessWidget {
                             ),
                             SizedBox(width: 8),
                             Expanded(
-                              child: SvgTextContainer(
-                                svgPath: 'assets/images/medicine.svg', // Replace with your actual SVG path
+                              child: PngTextContainer(
+                                imagePath: 'assets/images/MenstrualHealth.png', // Replace with your actual SVG path
                                 text: 'Menstrual Health',
-                                backgroundColor: Colors.blueAccent, // Example customization
+                                backgroundColor: Color(0xffA7E6FF), // light blue
                                 textColor: Colors.black,
                                 textBackgroundColor: Colors.white,
                                 textFontSize: 11,
@@ -243,10 +244,10 @@ class HomeScreenContent extends StatelessWidget {
                             ),
                             SizedBox(width: 8),
                             Expanded(
-                              child: SvgTextContainer(
-                                svgPath: 'assets/images/Calander.svg', // Replace with your actual SVG path
+                              child: PngTextContainer(
+                                imagePath: 'assets/images/Contraception.png', // Replace with your actual SVG path
                                 text: 'Sexual Health',
-                                backgroundColor: Colors.blueAccent, // Example customization
+                                backgroundColor: Color(0xffC7FFD8), // Example customization
                                 textColor: Colors.black,
                                 textBackgroundColor: Colors.white,
                                 textFontSize: 11.0,
@@ -255,10 +256,10 @@ class HomeScreenContent extends StatelessWidget {
                             ),
                             SizedBox(width: 8),
                             Expanded(
-                              child: SvgTextContainer(
-                                svgPath: 'assets/images/clinic.svg', // Replace with your actual SVG path
+                              child: PngTextContainer(
+                                imagePath: 'assets/images/Pregnancy.png', // Replace with your actual SVG path
                                 text: 'Pregnancy',
-                                backgroundColor: Colors.blueAccent, // Example customization
+                                backgroundColor: Color(0xffE8B86D), // Example customization
                                 textColor: Colors.black,
                                 textBackgroundColor: Colors.white,
                                 textFontSize: 11.0,

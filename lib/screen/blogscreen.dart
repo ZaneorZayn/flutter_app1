@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-import '../model/allcontent_model.dart';
 import '../model/blog_model.dart';
 import '../model/q&a_model.dart';
 import '../model/video_model.dart';
@@ -10,6 +9,7 @@ import '../widget/tabbar/blogtab.dart';
 import '../widget/tabbar/mypost.dart';
 import '../widget/tabbar/q&atab.dart';
 import '../widget/tabbar/video_tab.dart';
+import 'blog_search.dart';
 
 class Blogscreen extends StatefulWidget {
   const Blogscreen({super.key});
@@ -19,7 +19,7 @@ class Blogscreen extends StatefulWidget {
 }
 
 class _BlogscreenState extends State<Blogscreen> {
-  int _selectedIndex = 0; // Tracks the currently selected tab
+  int _selectedIndex = 0;
 
   final List<String> _tabs = [
     'All',
@@ -74,24 +74,20 @@ class _BlogscreenState extends State<Blogscreen> {
           IconButton(
             color: Colors.grey,
             style: IconButton.styleFrom(
-              backgroundColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(24)
-              )
+                backgroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(24)
+                )
             ),
-              onPressed: (){},
-              icon: Icon(Icons.search)
-          ),
-          IconButton(
-              color: Colors.grey,
-              style: IconButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(24)
-                  )
-              ),
-              onPressed: (){},
-              icon: Icon(Icons.bookmark)
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>SearchScreen(),
+                ),
+              );
+            },
+            icon: Icon(Icons.search),
           ),
         ],
         bottom: PreferredSize(
@@ -167,8 +163,6 @@ class _BlogscreenState extends State<Blogscreen> {
     }
   }
 }
-
-// Example widget for the QnA tab
 class QnAWidget extends StatelessWidget {
   final QuestionAnswer qna;
 
@@ -212,7 +206,6 @@ class QnAWidget extends StatelessWidget {
   }
 }
 
-// Example widget for the Video tab
 class VideoWidget extends StatefulWidget {
   final Video video;
 
